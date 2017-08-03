@@ -12,14 +12,15 @@ class Bookshelf extends Component {
 
     componentDidMount() {
         BooksAPI.getAll().then((books) => {
-          console.log(books);
             this.setState({books : books})
         })
     }
 
-    render() {
-        const { books } = this.state;
+    filterByShelf = (shelf) => {
+      return this.state.books.filter((b) => b.shelf === shelf);
+    }
 
+    render() {
         return (
          <div className="list-books">
             <div className="list-books-title">
@@ -27,9 +28,9 @@ class Bookshelf extends Component {
             </div>
             <div className="list-books-content">
               <div>
-                <Shelf title="Currently Reading" books={ books }/>
-                <Shelf title="Want to Read" books={ books }/>
-                <Shelf title="Read" books={ books }/>
+                <Shelf title="Currently Reading" books={ this.filterByShelf("currentlyReading") }/>
+                <Shelf title="Want to Read" books={ this.filterByShelf("wantToRead") }/>
+                <Shelf title="Read" books={ this.filterByShelf("read") }/>
               </div>
             </div>
             <div className="open-search">
