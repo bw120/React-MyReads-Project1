@@ -6,10 +6,11 @@ class Shelf extends Component {
     static propTypes = {
           title: PropTypes.string.isRequired,
           books: PropTypes.array.isRequired,
+          onChangeShelf: PropTypes.func.isRequired
         }
 
     render() {
-        const { books, title } = this.props;
+        const { books, title, onChangeShelf } = this.props;
 
         return (
             <div className="bookshelf">
@@ -19,7 +20,7 @@ class Shelf extends Component {
 
                 {books.map((book) => (
                     <li key={ book.id }>
-                        <Book bookInfo={ book }/>
+                        <Book bookInfo={ book } onChangeShelf={ onChangeShelf }/>
                     </li>
                     ))
                 }

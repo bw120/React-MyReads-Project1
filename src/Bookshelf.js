@@ -20,6 +20,22 @@ class Bookshelf extends Component {
       return this.state.books.filter((b) => b.shelf === shelf);
     }
 
+    changeShelf = (bookID, shelf) => {
+      this.setState((state) => ({
+        books: this.state.books.map((b) => {
+          if (b.id === bookID) {
+            b.shelf = shelf;
+            BooksAPI.update(b, shelf).then((response) => {
+              if (shelf !== "none" && response[shelf].indexOf(bookID) < 0) {
+                console.error("There was an error updating the server");
+              }
+            });
+          }
+          return b;
+          })
+      })
+    )}
+
     render() {
         return (
          <div className="list-books">
@@ -28,9 +44,9 @@ class Bookshelf extends Component {
             </div>
             <div className="list-books-content">
               <div>
-                <Shelf title="Currently Reading" books={ this.filterByShelf("currentlyReading") }/>
-                <Shelf title="Want to Read" books={ this.filterByShelf("wantToRead") }/>
-                <Shelf title="Read" books={ this.filterByShelf("read") }/>
+                <Shelf title="Currently Reading" books={ this.filterByShelf("currentlyReading") } onChangeShelf={ this.changeShelf } />
+                <Shelf title="Want to Read" books={ this.filterByShelf("wantToRead") } onChangeShelf={ this.changeShelf } />
+                <Shelf title="Read" books={ this.filterByShelf("read") } onChangeShelf={ this.changeShelf }/>
               </div>
             </div>
             <div className="open-search">
