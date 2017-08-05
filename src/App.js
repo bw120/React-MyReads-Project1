@@ -25,8 +25,8 @@ class BooksApp extends React.Component {
         }))
 
         BooksAPI.update(book, shelf).then((response) => {
-            if (shelf !== "none" && response[shelf].indexOf(bookID) < 0) {
-                console.error("There was an error updating the server");
+            if (shelf !== 'none' && response[shelf].indexOf(bookID) < 0) {
+                console.error('There was an error updating the server');
             }
         });
     }
@@ -40,8 +40,8 @@ class BooksApp extends React.Component {
                 if (b.id === bookID) {
                     b.shelf = shelf;
                     BooksAPI.update(b, shelf).then((response) => {
-                        if (shelf !== "none" && response[shelf].indexOf(bookID) < 0) {
-                            console.error("There was an error updating the server");
+                        if (shelf !== 'none' && response[shelf].indexOf(bookID) < 0) {
+                            console.error('There was an error updating the server');
                         }
                     });
                 }
@@ -52,19 +52,19 @@ class BooksApp extends React.Component {
 
     render() {
         return (
-            <div className="app">
+          <div className="app">
 
-          {/* Main page route */}
+            {/* Main page route */}
 
-          <Route exact path="/" render={() => (
-            <Bookshelf books={ this.state.books } onChangeShelf={ this.changeShelf } />
-          )}/>
+            <Route exact path="/" render={() => (
+              <Bookshelf books={ this.state.books } onChangeShelf={ this.changeShelf } />
+            )}/>
 
-          {/* Search page route */}
+            {/* Search page route */}
 
-          <Route exact path="/search" render={() => (
-            <Search onChangeShelf={ this.addBook } />
-          )}/>
+            <Route exact path="/search" render={() => (
+              <Search onChangeShelf={ this.addBook } />
+            )}/>
 
           </div>
         )
