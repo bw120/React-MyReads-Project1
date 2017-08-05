@@ -18,8 +18,8 @@ class Shelf extends Component {
               <div className="bookshelf-books">
                 <ol className="books-grid">
 
-                {books.map((book) => (
-                    <li key={ book.id }>
+                {books.map((book, key) => (
+                    <li key={ key }>
                         <Book bookInfo={ book } onChangeShelf={ onChangeShelf }/>
                     </li>
                     ))

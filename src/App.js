@@ -1,31 +1,74 @@
-
 import React from 'react'
 import { Route } from 'react-router-dom'
 import Bookshelf from './Bookshelf'
 import Search from './Search'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 class BooksApp extends React.Component {
 
-  render() {
-    return (
-      <div className="app">
+    state = {
+        books: []
+    }
 
-    {/* Main page route */}
+    componentDidMount() {
+        BooksAPI.getAll().then((books) => {
+            this.setState({ books: books })
+        })
+    }
 
-        <Route exact path="/" render={() => (
-          <Bookshelf/>
-        )}/>
+    addBook = (book, shelf) => {
+        const bookID = book.id
 
-    {/* Search page route */}
+        this.setState((state) => ({
+            books: this.state.books.concat(book)
+        }))
 
-        <Route exact path="/search" render={() => (
-          <Search/>
-        )}/>
+        BooksAPI.update(book, shelf).then((response) => {
+            if (shelf !== "none" && response[shelf].indexOf(bookID) < 0) {
+                console.error("There was an error updating the server");
+            }
+        });
+    }
 
-      </div>
-    )
-  }
+
+    changeShelf = (book, shelf) => {
+        const bookID = book.id
+
+        this.setState((state) => ({
+            books: this.state.books.map((b) => {
+                if (b.id === bookID) {
+                    b.shelf = shelf;
+                    BooksAPI.update(b, shelf).then((response) => {
+                        if (shelf !== "none" && response[shelf].indexOf(bookID) < 0) {
+                            console.error("There was an error updating the server");
+                        }
+                    });
+                }
+                return b;
+            })
+        }))
+    }
+
+    render() {
+        return (
+            <div className="app">
+
+          {/* Main page route */}
+
+          <Route exact path="/" render={() => (
+            <Bookshelf books={ this.state.books } onChangeShelf={ this.changeShelf } />
+          )}/>
+
+          {/* Search page route */}
+
+          <Route exact path="/search" render={() => (
+            <Search onChangeShelf={ this.addBook } />
+          )}/>
+
+          </div>
+        )
+    }
 }
 
 export default BooksApp

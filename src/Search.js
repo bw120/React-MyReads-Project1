@@ -1,7 +1,33 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
+import Shelf from './Shelf'
+import PropTypes from 'prop-types'
+
 
 class Search extends Component {
+  static propTypes = {
+        onChangeShelf: PropTypes.func.isRequired
+  }
+
+  state = {
+    query: '',
+    books: []
+  }
+
+  searchedYet = false;
+
+  updateSearch = (query) => {
+    this.searchedYet = true;
+    this.setState({ query: query.trim() })
+    if (query.length > 0) {
+      BooksAPI.search(query, 20).then((b) => {
+        this.setState({ books: b});
+      });
+    } else {
+      this.setState({ books: ''});
+    }
+  }
 
     render() {
 
@@ -18,12 +44,23 @@ class Search extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input
+                  type="text"
+                  placeholder="Search by title or author"
+                  value={this.state.query}
+                  onChange={(event) => this.updateSearch(event.target.value)}
+                  />
 
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              {
+                (this.state.books.length > 0) ? (
+                <Shelf title="Search Results" books={ this.state.books } onChangeShelf={ this.props.onChangeShelf } />
+                ) : (
+                <div>{(this.searchedYet) ? (<span>Sorry, we did not find anything that mached</span>) : (<span>Please enter a search term above</span>)}</div>
+                )
+              }
             </div>
           </div>
         );
