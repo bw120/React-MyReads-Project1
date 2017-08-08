@@ -4,16 +4,26 @@ import PropTypes from 'prop-types'
 class Book extends Component {
     static propTypes = {
         bookInfo: PropTypes.object.isRequired,
-        onChangeShelf: PropTypes.func.isRequired
+        onChangeShelf: PropTypes.func.isRequired,
+        inSearch: PropTypes.bool
     };
 
+    shelves = {
+      read: "Read",
+      currentlyReading: "Currently Reading",
+      wantToRead: "Want To Read"
+    }
+
     render() {
-        const { bookInfo } = this.props;
+        const { bookInfo, inSearch } = this.props;
 
         return (
           <div className="book">
             <div className="book-top">
-              <div className="book-cover" style={ {width: 128, height: 193, backgroundImage: "url(" + ((bookInfo.imageLinks) ? bookInfo.imageLinks.smallThumbnail : 'images/defaultBookThumb.png' )+ ")" }}></div>
+              <div className="book-cover" style={ {width: 128, height: 193, backgroundImage: "url(" + ((bookInfo.imageLinks) ? bookInfo.imageLinks.smallThumbnail : 'images/defaultBookThumb.png' ) + ")" }}></div>
+
+              {inSearch && this.shelves[bookInfo.shelf] && <div className="book-shelf-flag">{this.shelves[bookInfo.shelf]}</div>}
+
               <div className="book-shelf-changer">
                 <select value={bookInfo.shelf} onChange={(event) => this.props.onChangeShelf(bookInfo, event.target.value)}>
                   <option value="none" disabled>Move to...</option>

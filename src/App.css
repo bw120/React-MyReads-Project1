@@ -146,6 +146,22 @@ body, .app {
   align-items: flex-end;
 }
 
+
+.book-shelf-flag {
+  padding: 5px;
+  font-size: .8em;
+  position: absolute;
+  vertical-align: top;
+  text-align: center;
+  right: 11px;
+  left: 0;
+  top: 0;
+  height: 30px;
+  background: #ff0000;
+  color: #ffffff;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
 .book-shelf-changer {
   position: absolute;
   right: 0;

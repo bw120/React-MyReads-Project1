@@ -89,7 +89,7 @@ class Search extends Component {
               <div className="search-books-results">
                 {
                   (this.state.books.length > 0 && this.state.query.length > 0) ? (
-                  <Shelf title="Search Results" books={ this.state.books } onChangeShelf={ this.props.onChangeShelf } />
+                  <Shelf title="Search Results" books={ this.state.books } onChangeShelf={ this.props.onChangeShelf } inSearch={true} />
                   ) : (
                   <div className="search-no-results">{(this.searchedYet) ? (<span>Sorry, we did not find anything that mached</span>) : (<span>Please enter a search term above</span>)}</div>
                   )
