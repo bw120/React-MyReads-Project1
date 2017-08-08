@@ -9,7 +9,7 @@ class BooksApp extends React.Component {
 
     state = {
         books: []
-    }
+    };
 
     componentDidMount() {
         BooksAPI.getAll().then((books) => {
@@ -29,7 +29,7 @@ class BooksApp extends React.Component {
                 console.error('There was an error updating the server');
             }
         });
-    }
+    };
 
 
     changeShelf = (book, shelf) => {
@@ -48,7 +48,7 @@ class BooksApp extends React.Component {
                 return b;
             })
         }))
-    }
+    };
 
     render() {
         return (
@@ -63,7 +63,7 @@ class BooksApp extends React.Component {
             {/* Search page route */}
 
             <Route exact path="/search" render={() => (
-              <Search onChangeShelf={ this.addBook } />
+              <Search bookshelf={ this.state.books } onChangeShelf={ this.addBook } />
             )}/>
 
           </div>

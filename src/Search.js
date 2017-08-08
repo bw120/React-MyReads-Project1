@@ -4,6 +4,7 @@ import * as BooksAPI from './BooksAPI'
 import Shelf from './Shelf'
 import PropTypes from 'prop-types'
 import DebounceInput from 'react-debounce-input';
+import sortBy from 'sort-by'
 
 
 class Search extends Component {
@@ -36,6 +37,7 @@ class Search extends Component {
         }
         return book;
       });
+      books.sort(sortBy("title"));
       this.setState({ books: books });
     }
 

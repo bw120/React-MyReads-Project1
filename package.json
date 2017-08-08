@@ -1,11 +1,12 @@
 {
   "dependencies": {
+    "escape-string-regexp": "latest",
+    "form-serialize": "latest",
     "prop-types": "^15.5.8",
-    "react": "^15.5.4",
+    "react": "^15.6.1",
+    "react-debounce-input": "^3.0.1",
     "react-dom": "^15.5.4",
     "react-router-dom": "latest",
-    "form-serialize": "latest",
-    "escape-string-regexp": "latest",
     "sort-by": "latest"
   },
   "devDependencies": {
