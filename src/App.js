@@ -15,32 +15,33 @@ class BooksApp extends React.Component {
         BooksAPI.getAll().then((books) => {
             this.setState({ books: books })
         })
-    }
+    };
 
     changeShelf = (book, shelf) => {
         const bookID = book.id;
         let bookFound = false;
 
-        //Go through bookshelf and update shelf if present
+        //If book is already on the shelf, update shelf
         let allBooks = this.state.books.map((b) => {
-                if (b.id === bookID) {
-                    b.shelf = shelf;
-                    bookFound = true;
-                }
-                return b;
-            });
+            if (b.id === bookID) {
+                b.shelf = shelf;
+                bookFound = true;
+            }
+            return b;
+        });
 
-        //if book wasn't found, add it
+        //If book isn't already on shelf, add it
         if (!bookFound) {
             book.shelf = shelf;
             allBooks.push(book);
         }
 
+        //Update component state
         this.setState({
             books: allBooks
         });
 
-        //update bookshelf on the API
+        //update on the API
         BooksAPI.update(book, shelf).then((response) => {
             if (shelf !== 'none' && response[shelf].indexOf(bookID) < 0) {
                 console.error('There was an error updating the server');
@@ -50,7 +51,7 @@ class BooksApp extends React.Component {
 
     render() {
         return (
-          <div className="app">
+            <div className="app">
 
             {/* Main page route */}
 
@@ -67,6 +68,6 @@ class BooksApp extends React.Component {
           </div>
         )
     }
-}
+};
 
 export default BooksApp

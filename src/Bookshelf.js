@@ -35,6 +35,6 @@ class Bookshelf extends Component {
             </div>
         );
     }
-}
+};
 
 export default Bookshelf;

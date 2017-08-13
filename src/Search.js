@@ -23,32 +23,32 @@ class Search extends Component {
     //Used to set the bookshelf on the search results
     myBooks = {};
     createShelfList = (books) => {
-      books.forEach((book) => {
-        this.myBooks[book.id] = book.shelf;
-      });
-    }
+        books.forEach((book) => {
+            this.myBooks[book.id] = book.shelf;
+        });
+    };
 
     //Updates the shelf for each item in the search results.
     //It is set to either the value from our bookshelf or set to "none"
     //Note: some of the results from the API come over with the shelf set to an arbitrary value
     //So this needs to be set to "none" if it is not in our bookshelf
     setShelf = () => {
-      let books = this.state.books;
-      books.map((book) => {
-        book.shelf = (this.myBooks[book.id]) ? this.myBooks[book.id] : "none";
-        return book;
-      });
-      books.sort(sortBy("title"));
-      this.setState({ books: books });
-    }
+        let books = this.state.books;
+        books.map((book) => {
+            book.shelf = (this.myBooks[book.id]) ? this.myBooks[book.id] : "none";
+            return book;
+        });
+        books.sort(sortBy("title"));
+        this.setState({ books: books });
+    };
 
     //Handler for updating shelf on search screen
     //update local state for search and then call handler from App.js to update bookshelf
     updateBookshelf = (book, shelf) => {
-      this.myBooks[book.id] = shelf;
-      this.setShelf();
-      this.props.changeShelf(book, shelf);
-    }
+        this.myBooks[book.id] = shelf;
+        this.setShelf();
+        this.props.changeShelf(book, shelf);
+    };
 
     //This is used to change what message is displayed when no results are shown.
     //the user is told to enter a query in the search bar or if nothing matched query
@@ -67,10 +67,10 @@ class Search extends Component {
             this.setState({ books: [] });
         }
         this.searchedYet = true;
-    }
+    };
 
     render() {
-      this.createShelfList(this.props.bookshelf);
+        this.createShelfList(this.props.bookshelf);
         return (
             <div className="search-books">
               <div className="search-books-bar">
@@ -99,6 +99,6 @@ class Search extends Component {
             </div>
         );
     }
-}
+};
 
 export default Search;

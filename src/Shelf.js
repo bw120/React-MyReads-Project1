@@ -32,6 +32,6 @@ class Shelf extends Component {
           </div>
         );
     }
-}
+};
 
 export default Shelf;

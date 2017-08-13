@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ScrollLock from 'react-scrolllock';
 
 class BookDetails extends Component {
+
     static propTypes = {
         bookInfo: PropTypes.object.isRequired,
         onClose: PropTypes.func
@@ -12,12 +13,12 @@ class BookDetails extends Component {
         read: "Read",
         currentlyReading: "Currently Reading",
         wantToRead: "Want To Read"
-    }
+    };
 
     render() {
         const { bookInfo } = this.props;
         return (
-          <div className="modal-bg">
+            <div className="modal-bg">
               <div className="modal-container">
                 <div className="scroll">
                   <div className="modal-top-bar">
@@ -43,6 +44,6 @@ class BookDetails extends Component {
             </div>
         );
     }
-}
+};
 
 export default BookDetails;
