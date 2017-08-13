@@ -7,12 +7,12 @@ This web app allows you to search an API for books and add them to your own pers
 - Clone or download the repository from GitHub
 - Open up a comand terminal/prompt and go to that directory.
 - Run the command `npm install`
-- When that is done rung the command `npm start`
-- This should run start a local web server and open a web browser window to the page
+- When that is done, run the command `npm start`
+- This should run start a local web server and open a web browser window to the page. If it doesn't open a browser window, you can go to the following url `http://localhost:3000/`
 
 ## Backend Server
 
-The backend server was provided so that we could focus on the React code. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods necessary operations on the backend:
+The backend server was provided by Udacy so that students could focus on the React code. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods necessary operations on the backend:
 
 ### `getAll()`
 * Returns a Promise which resolves to a JSON object containing a collection of book objects.
@@ -32,7 +32,7 @@ The backend server was provided so that we could focus on the React code. The pr
 ## Important
 The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
 
-## create-react-app
+## React-app
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
