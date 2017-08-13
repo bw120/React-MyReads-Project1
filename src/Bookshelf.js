@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Shelf from './Shelf'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import sortBy from 'sort-by'
 
 
 class Bookshelf extends Component {
@@ -12,7 +13,7 @@ class Bookshelf extends Component {
     };
 
     filterByShelf = (shelf) => {
-        return this.props.books.filter((b) => b.shelf === shelf);
+        return this.props.books.filter((b) => b.shelf === shelf).sort(sortBy("title"));
     };
 
     render() {
