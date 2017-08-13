@@ -11,43 +11,41 @@ class BooksApp extends React.Component {
         books: []
     };
 
-    componentDidMount() {
+    componentDidMount = () => {
         BooksAPI.getAll().then((books) => {
             this.setState({ books: books })
         })
     }
 
-    addBook = (book, shelf) => {
-        const bookID = book.id
+    changeShelf = (book, shelf) => {
+        const bookID = book.id;
+        let bookFound = false;
 
-        this.setState((state) => ({
-            books: this.state.books.concat(book)
-        }))
+        //Go through bookshelf and update shelf if present
+        let allBooks = this.state.books.map((b) => {
+                if (b.id === bookID) {
+                    b.shelf = shelf;
+                    bookFound = true;
+                }
+                return b;
+            });
 
+        //if book wasn't found, add it
+        if (!bookFound) {
+            book.shelf = shelf;
+            allBooks.push(book);
+        }
+
+        this.setState({
+            books: allBooks
+        });
+
+        //update bookshelf on the API
         BooksAPI.update(book, shelf).then((response) => {
             if (shelf !== 'none' && response[shelf].indexOf(bookID) < 0) {
                 console.error('There was an error updating the server');
             }
         });
-    };
-
-
-    changeShelf = (book, shelf) => {
-        const bookID = book.id
-
-        this.setState((state) => ({
-            books: this.state.books.map((b) => {
-                if (b.id === bookID) {
-                    b.shelf = shelf;
-                    BooksAPI.update(b, shelf).then((response) => {
-                        if (shelf !== 'none' && response[shelf].indexOf(bookID) < 0) {
-                            console.error('There was an error updating the server');
-                        }
-                    });
-                }
-                return b;
-            })
-        }))
     };
 
     render() {
@@ -63,7 +61,7 @@ class BooksApp extends React.Component {
             {/* Search page route */}
 
             <Route exact path="/search" render={() => (
-              <Search bookshelf={ this.state.books } onChangeShelf={ this.addBook } />
+              <Search bookshelf={ this.state.books } changeShelf={ this.changeShelf } />
             )}/>
 
           </div>

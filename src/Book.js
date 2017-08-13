@@ -16,13 +16,12 @@ class Book extends Component {
 
     render() {
         const { bookInfo, inSearch } = this.props;
-
         return (
           <div className="book">
             <div className="book-top">
               <div className="book-cover" style={ {width: 128, height: 193, backgroundImage: "url(" + ((bookInfo.imageLinks) ? bookInfo.imageLinks.smallThumbnail : 'images/defaultBookThumb.png' ) + ")" }}></div>
 
-              {inSearch && this.shelves[bookInfo.shelf] && <div className="book-shelf-flag">{this.shelves[bookInfo.shelf]}</div>}
+              { inSearch && this.shelves[bookInfo.shelf] && <div className="book-shelf-flag">{ this.shelves[bookInfo.shelf] }</div>}
 
               <div className="book-shelf-changer">
                 <select value={bookInfo.shelf} onChange={(event) => this.props.onChangeShelf(bookInfo, event.target.value)}>
@@ -39,7 +38,6 @@ class Book extends Component {
           </div>
         );
     }
-
 }
 
 export default Book;
