@@ -7,6 +7,7 @@
     "react-debounce-input": "^3.0.1",
     "react-dom": "^15.5.4",
     "react-router-dom": "latest",
+    "react-scrolllock": "^1.0.8",
     "sort-by": "latest"
   },
   "devDependencies": {
