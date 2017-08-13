@@ -15,6 +15,15 @@ class BookDetails extends Component {
         wantToRead: "Want To Read"
     };
 
+    //Get ISBN-13 if available
+    getISBN = () => {
+        let isbn13 = [];
+        if (this.props.bookInfo.industryIdentifiers) {
+          isbn13 = this.props.bookInfo.industryIdentifiers.filter((item) => { return item.type === "ISBN_13" });
+        }
+        return (isbn13[0]) ? isbn13[0].identifier : <em>Not available</em>;
+    }
+
     render() {
         const { bookInfo } = this.props;
         return (
@@ -29,9 +38,12 @@ class BookDetails extends Component {
                     <div className="book-cover modal-thumb" style={ {width: 128, height: 193, backgroundImage: "url(" + ((bookInfo.imageLinks) ? bookInfo.imageLinks.smallThumbnail : 'images/defaultBookThumb.png' ) + ")" }}></div>
                     <div className="modal-details">
                       <div className="modal-detail-item"><span className="detail-name">Rating: </span>{ bookInfo.averageRating || <em>Not available</em> }</div>
-                      <div className="modal-detail-item"><span className="detail-name">Author{(bookInfo.authors && bookInfo.authors.length > 1) ? "s" : "" }: </span>{ (bookInfo.authors) ? bookInfo.authors.join(", ") : <em>Not available</em>}</div>
+                      <div className="modal-detail-item">
+                        <span className="detail-name">Author{(bookInfo.authors && bookInfo.authors.length > 1) ? "s" : "" }: </span>
+                        { (bookInfo.authors) ? bookInfo.authors.join(", ") : <em>Not available</em>}
+                      </div>
                       <div className="modal-detail-item"><span className="detail-name">Publisher: </span>{ bookInfo.publisher || <em>Not available</em>}</div>
-                      <div className="modal-detail-item"><span className="detail-name">ISBN-13: </span>{ (bookInfo.industryIdentifiers) ? bookInfo.industryIdentifiers.filter((item) => { return (item.type === "ISBN_13" )})[0].identifier : <em>Not available</em>}</div>
+                      <div className="modal-detail-item"><span className="detail-name">ISBN-13: </span>{ this.getISBN() }</div>
                     </div>
                     <div className="modal-description">
                       <div className="detail-name">Description: </div>
