@@ -5,7 +5,7 @@ This web app allows you to search an API for books and add them to your own pers
 
 ## Installation and Setup
 - Clone or download the repository from GitHub
-- Open up a comand terminal/prompt and go to that directory.
+- Open up a comand terminal/prompt and go to the "React-MyReads-Project1" directory within the repository.
 - Run the command `npm install`
 - When that is done, run the command `npm start`
 - This should run start a local web server and open a web browser window to the page. If it doesn't open a browser window, you can go to the following url `http://localhost:3000/`
